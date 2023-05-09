@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="CharterAddForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FlightMasterFORM.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LOGINForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MAINFORM.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PRINTForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UserControlAdminSetting.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControlAF.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControlCREW.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControlTimeTable.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
