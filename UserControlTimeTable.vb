@@ -1,5 +1,6 @@
 ﻿
 Imports System.Data.SqlClient
+Imports DocumentFormat.OpenXml.Wordprocessing
 
 
 Public Class UserControlTimeTable
@@ -19,7 +20,7 @@ Public Class UserControlTimeTable
             Return _comboBoxColumnRIC
         End Get
         Set(value As DataGridViewComboBoxColumn)
-            _comboBoxColumnRIC = dgvMain.Columns("Column6")
+            _comboBoxColumnRIC = value
         End Set
     End Property
 
@@ -30,10 +31,24 @@ Public Class UserControlTimeTable
             Return _comboBoxColumnCM
         End Get
         Set(value As DataGridViewComboBoxColumn)
-            _comboBoxColumnCM = dgvMain.Columns("Column8")
+            _comboBoxColumnCM = value
         End Set
     End Property
 
+
+    '****************************************
+    Private _lbCMItems As New List(Of String)
+
+    Public Property LbcmItems As List(Of String)
+        Get
+            Return _lbCMItems
+        End Get
+        Set(value As List(Of String))
+            _lbCMItems = value
+        End Set
+    End Property
+
+    '****************************************
 
 
 
@@ -45,6 +60,10 @@ Public Class UserControlTimeTable
         changeDayLbl(dtpDate, lblDay) 'load day
 
         ' Set the font color of all cells in the DataGridView
+
+        'set columns
+        ComboBoxColumnCM = dgvMain.Columns("Column8")
+        ComboBoxColumnRIC = dgvMain.Columns("Column6")
 
 
         'set the panel12
@@ -66,6 +85,8 @@ Public Class UserControlTimeTable
         Dim currentDate As Date = Date.Today
         lbltoday.Text = currentDate.ToString("dd/MM/yyyy") ' Displays the current date in the format "dd/MM/yyyy" on a label control
 
+        '***********************
+        LbcmItems.Clear()
 
 
     End Sub
@@ -87,6 +108,13 @@ Public Class UserControlTimeTable
             Dim groupName As String
             groupName = cbGroup.Text
             'MsgBox(groupName)
+            TTLoadDataToListBoxesModule.LoadDataToListBoxes(cbGroup, lbCM, lbRIC, connsql)
+
+            ' Add each item in the lbCM list box to the list *******************
+            For Each item As Object In lbCM.Items
+                LbcmItems.Add(item.ToString())
+            Next
+
             cbAddMoreCM.Items.Clear()
             'load all CM to the more combo box
             loadMoreCMToComboBox(connsql, cbAddMoreCM, groupName)
@@ -96,15 +124,14 @@ Public Class UserControlTimeTable
             cbAddMoreRIC.Items.Clear()
             loadMoreRICToComboBox(connsql, cbAddMoreRIC, groupName)
 
-            TTLoadDataToListBoxesModule.LoadDataToListBoxes(cbGroup, lbCM, lbRIC, connsql)
 
             'load data to datagridview RIC column
-            'ComboBoxColumnRIC = dgvMain.Columns("Column6")
-            loadMoreRICToDGV(comboBoxColumnRIC, lbRIC)
+            ComboBoxColumnRIC.Items.Clear()
+            loadMoreRICToDGV(ComboBoxColumnRIC, lbRIC)
 
             'load data to datagridview CM column
-            'ComboBoxColumnCM = dgvMain.Columns("Column8")
-            loadMoreCMToDGV(comboBoxColumnCM, lbCM)
+            ComboBoxColumnCM.Items.Clear()
+            loadMoreCMToDGV(ComboBoxColumnCM, lbCM)
 
 
         Catch ex As Exception
@@ -245,7 +272,9 @@ Public Class UserControlTimeTable
     'Handles btnAddCMToTable.Click
     Private Sub btnAddCMToTable_Click(sender As Object, e As EventArgs) Handles btnAddCMToTable.Click
         Try
-            addCM(lbCM, ComboBoxColumnCM)
+            ComboBoxColumnCM.Items.Clear()
+            addCM(LbcmItems, ComboBoxColumnCM)
+
         Catch ex As Exception
             MsgBox(ex.Message)
         Finally
@@ -413,7 +442,7 @@ Public Class UserControlTimeTable
                         cbAddMoreCM.Items.Remove(selectedItem)
 
 
-                        loadMoreCMToDGV(ComboBoxColumnCM, lbCM)
+                        ' loadMoreCMToDGV(ComboBoxColumnCM, lbCM)
 
 
                     End If
@@ -434,7 +463,7 @@ Public Class UserControlTimeTable
                         lbRIC.Items.Add(selectedItem)
                         cbAddMoreRIC.Items.Remove(selectedItem)
 
-                        loadMoreRICToDGV(ComboBoxColumnRIC, lbRIC)
+                        ' loadMoreRICToDGV(ComboBoxColumnRIC, lbRIC)
 
 
                     End If
