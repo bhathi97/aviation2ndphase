@@ -3,37 +3,66 @@
 Module TTAddCMModule
     Public Sub addCM(lb As List(Of String), dgv As DataGridViewComboBoxColumn)
 
-        Try
-            dgv.Items.Clear()
-            Dim rowCount As Integer = dgv.DataGridView.Rows.Count
-            Dim colCount As Integer = dgv.DataGridView.Columns.Count
+        ' Get the item count of the ListBox
+        Dim itemCount As Integer = lb.Count
 
-            For i As Integer = 0 To colCount - 1 Step lb.Count
-                Dim rangeEnd As Integer = Math.Min(i + lb.Count - 1, colCount - 1)
+        ' Get the total number of rows in the DataGridView
+        Dim rowCount As Integer = dgv.DataGridView.Rows.Count
 
-                For j As Integer = i To rangeEnd
-                    Dim col As DataGridViewColumn = dgv.DataGridView.Columns(j)
+        ' Calculate the number of full ranges
+        Dim rangeCount As Integer = Math.Floor(rowCount / itemCount)
 
-                    If TypeOf col Is DataGridViewComboBoxColumn AndAlso CType(col, DataGridViewComboBoxColumn).Items.Contains(lb(j - i)) Then
-                        Continue For ' item already exists in column, move on to next
-                    End If
+        ' Calculate the remaining rows
+        Dim remainingRows As Integer = rowCount Mod itemCount
 
-                    dgv.Items.Add(lb(j - i))
-                    Dim itemIndex As Integer = dgv.Items.Count - 1
+        ' Loop through each full range
+        For i As Integer = 0 To rangeCount - 1
+            ' Get the starting index for the current range
+            Dim startIndex As Integer = i * itemCount
 
-                    For k As Integer = 0 To rowCount - 1
-                        Dim cell As DataGridViewComboBoxCell = CType(dgv.DataGridView.Rows(k).Cells(j), DataGridViewComboBoxCell)
-                        cell.Items.Add(lb(j - i))
-                        cell.Value = dgv.Items(itemIndex)
-                    Next
-                Next
+            ' Loop through each item in the ListBox
+            For j As Integer = 0 To lb.Count - 1
+
+
+                'MsgBox(lb(j))
+
+                ' Calculate the index of the current DataGridView row
+                Dim rowIndex As Integer = startIndex + j
+
+                'MsgBox(rowIndex.ToString + dgv.Index.ToString)
+
+                ' Set the value of the cell at the specified rowIndex and columnIndex
+                Dim cell As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex).Cells(dgv.Index)
+
+                If cell.Value Is Nothing Then
+                    cell.Value = lb(j)
+                End If
             Next
-        Catch ex As Exception
-            ' handle exception
-        End Try
+        Next
 
+        ' Loop through the remaining rows
+        If remainingRows > 0 Then
+            ' Get the starting index for the remaining rows
+            Dim startIndex As Integer = rangeCount * itemCount
 
+            ' Loop through each item in the ListBox
+            For j As Integer = 0 To lb.Count - 1
+                ' Calculate the index of the current DataGridView row
+                Dim rowIndex As Integer = startIndex + j
+
+                ' Set the value of the cell at the specified rowIndex and columnIndex
+                If rowIndex < rowCount Then
+                    Dim cell As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex).Cells(dgv.Index)
+                    If cell.Value Is Nothing Then
+                        cell.Value = lb(j)
+                    End If
+                End If
+            Next
+        End If
     End Sub
+
+
+
 
 
 

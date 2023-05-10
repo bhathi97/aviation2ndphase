@@ -272,7 +272,7 @@ Public Class UserControlTimeTable
     'Handles btnAddCMToTable.Click
     Private Sub btnAddCMToTable_Click(sender As Object, e As EventArgs) Handles btnAddCMToTable.Click
         Try
-            ComboBoxColumnCM.Items.Clear()
+            'ComboBoxColumnCM.Items.Clear()
             addCM(LbcmItems, ComboBoxColumnCM)
 
         Catch ex As Exception
