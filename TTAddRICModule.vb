@@ -1,45 +1,181 @@
 ﻿
 Module TTAddRICModule
 
-    Public Sub addRIC(lb As ListBox, dgv As DataGridViewComboBoxColumn)
-        Dim itemCount As Integer = lb.Items.Count 'listview column count
-        Dim flag As Integer = 0
+    Public Sub addRIC(lb As List(Of String), dgv As DataGridViewComboBoxColumn)
+        ' Get the item count of the ListBox
+        Dim itemCount As Integer = lb.Count
 
-        'loop thruogh the table rows
-        If itemCount <> 1 Then
+        ' Get the total number of rows in the DataGridView
+        Dim rowCount As Integer = dgv.DataGridView.Rows.Count
 
-            For i As Integer = 0 To dgv.DataGridView.Rows.Count - 1
-                Dim cell As DataGridViewComboBoxCell = dgv.DataGridView.Rows(i).Cells(dgv.Name)
+        ' Calculate the number of full ranges
+        Dim rangeCount As Integer = Math.Floor(rowCount / itemCount)
 
-                If dgv.DataGridView.Rows(i).Cells("Column3").Value IsNot Nothing AndAlso dgv.DataGridView.Rows(i).Cells("Column3").Value <> "YES" AndAlso dgv.DataGridView.Rows(i).Cells("Column2").Value <> True Then
-                    If flag < itemCount Then
-                        cell.Value = lb.Items(flag).ToString()
-                        flag += 1
-                        If flag = itemCount Then flag = 0 ' reset flag if it reaches the end of the ListView
+        ' Calculate the remaining rows
+        Dim remainingRows As Integer = rowCount Mod itemCount
+
+
+
+
+
+
+
+
+        ' Loop through each full range
+        For i As Integer = 0 To rangeCount - 1
+            ' Get the starting index for the current range
+            Dim startIndex As Integer = i * itemCount
+
+
+
+            ' Loop through each item in the ListBox
+            For j As Integer = 0 To lb.Count - 1
+
+                ' Calculate the index of the current DataGridView row
+                Dim rowIndex As Integer = startIndex + j
+
+                ' Set the value of the cell at the specified rowIndex and columnIndex
+                Dim cell As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex).Cells(dgv.Index)
+
+
+
+
+
+                If cell.Value Is Nothing Then
+
+                    If rowIndex = 0 Then
+                        Dim cellNext As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex + 1).Cells(dgv.Index)
+
+                        If cellNext.Value <> lb(j) Then
+
+                            cell.Value = lb(j)
+
+
+                        End If
+
                     End If
-                ElseIf dgv.DataGridView.Rows(i).Cells("Column2").Value = True Then
-                    ' Do nothing
-                Else
-                    cell.Value = ""
+
+                    If rowIndex > 0 And rowIndex < rowCount - 1 Then
+                        Dim cellNext As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex + 1).Cells(dgv.Index)
+                        Dim cellBefore As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex - 1).Cells(dgv.Index)
+
+                        If cellNext.Value <> lb(j) And cellBefore.Value <> lb(j) Then
+                            cell.Value = lb(j)
+
+
+
+                        End If
+
+
+                    End If
+
+                    If rowCount - 1 = rowIndex Then
+
+                        Dim cellBefore As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex - 1).Cells(dgv.Index)
+                        If cellBefore.Value <> lb(j) Then
+                            cell.Value = lb(j)
+
+
+
+                        End If
+
+                    End If
+
+
+
+
+
+
+
+                End If
+
+
+
+
+
+            Next
+        Next
+
+        ' Loop through the remaining rows
+        If remainingRows > 0 Then
+            ' Get the starting index for the remaining rows
+            Dim startIndex As Integer = rangeCount * itemCount
+
+            ' Loop through each item in the ListBox
+            For j As Integer = 0 To lb.Count - 1
+                ' Calculate the index of the current DataGridView row
+                Dim rowIndex As Integer = startIndex + j
+
+                ' Set the value of the cell at the specified rowIndex and columnIndex
+                If rowIndex < rowCount Then
+                    Dim cell As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex).Cells(dgv.Index)
+
+                    If cell.Value Is Nothing Then
+                        ' Check if the current value is the same as the previous or next value
+
+
+
+
+
+
+                        If rowIndex = 0 Then
+                            Dim cellNext As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex + 1).Cells(dgv.Index)
+
+                            If cellNext.Value <> lb(j) Then
+
+                                cell.Value = lb(j)
+                            End If
+
+                        End If
+
+                        If rowIndex > 0 And rowIndex < rowCount - 1 Then
+                            Dim cellNext As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex + 1).Cells(dgv.Index)
+                            Dim cellBefore As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex - 1).Cells(dgv.Index)
+
+                            If cellNext.Value <> lb(j) And cellBefore.Value <> lb(j) Then
+                                cell.Value = lb(j)
+                            End If
+
+
+                        End If
+
+                        If rowCount - 1 = rowIndex Then
+
+                            Dim cellBefore As DataGridViewComboBoxCell = dgv.DataGridView.Rows(rowIndex - 1).Cells(dgv.Index)
+                            If cellBefore.Value <> lb(j) Then
+                                cell.Value = lb(j)
+                            End If
+
+                        End If
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        'cell.Value = lb(j)
+                    End If
                 End If
             Next
-
-            'if there is only one item 
-        ElseIf itemCount = 1 Then
-
-            For i As Integer = 0 To dgv.DataGridView.Rows.Count - 1
-                Dim cell As DataGridViewComboBoxCell = dgv.DataGridView.Rows(i).Cells(dgv.Name)
-
-                If dgv.DataGridView.Rows(i).Cells("Column3").Value IsNot Nothing AndAlso dgv.DataGridView.Rows(i).Cells("Column3").Value <> "YES" Then
-                    cell.Value = lb.Items(0).ToString()
-                Else
-                    cell.Value = ""
-                End If
-            Next
-
         End If
-
     End Sub
+
+
+
+
+
+
 
 
 End Module

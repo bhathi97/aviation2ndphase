@@ -51,6 +51,19 @@ Public Class UserControlTimeTable
     '****************************************
 
 
+    Private _lbRICItems As New List(Of String)
+
+    Public Property LbRICItems As List(Of String)
+        Get
+            Return _lbRICItems
+        End Get
+        Set(value As List(Of String))
+            _lbRICItems = value
+        End Set
+    End Property
+
+    '****************************************
+
 
     'Handles MyBase.Load
     Private Sub UserControlTimeTable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -113,7 +126,15 @@ Public Class UserControlTimeTable
             ' Add each item in the lbCM list box to the list *******************
             For Each item As Object In lbCM.Items
                 LbcmItems.Add(item.ToString())
+
             Next
+
+            ' Add each item in the lbCM list box to the list *******************
+            For Each item As Object In lbRIC.Items
+                LbRICItems.Add(item.ToString())
+
+            Next
+
 
             cbAddMoreCM.Items.Clear()
             'load all CM to the more combo box
@@ -285,7 +306,7 @@ Public Class UserControlTimeTable
     'Handles btnAddRICToTable.Click
     Private Sub btnAddRICToTable_Click(sender As Object, e As EventArgs) Handles btnAddRICToTable.Click
         Try
-            addRIC(lbRIC, ComboBoxColumnRIC)
+            addRIC(_lbRICItems, ComboBoxColumnRIC)
         Catch ex As Exception
             MsgBox(ex.Message)
         Finally
