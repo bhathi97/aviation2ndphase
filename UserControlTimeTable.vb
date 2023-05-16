@@ -35,6 +35,17 @@ Public Class UserControlTimeTable
         End Set
     End Property
 
+    Private _comboBoxColumnOP As DataGridViewComboBoxColumn
+
+    Public Property ComboBoxColumnOP As DataGridViewComboBoxColumn
+        Get
+            Return _comboBoxColumnOP
+        End Get
+        Set(value As DataGridViewComboBoxColumn)
+            _comboBoxColumnOP = value
+        End Set
+    End Property
+
 
     '****************************************
     Private _lbCMItems As New List(Of String)
@@ -77,6 +88,7 @@ Public Class UserControlTimeTable
         'set columns
         ComboBoxColumnCM = dgvMain.Columns("Column8")
         ComboBoxColumnRIC = dgvMain.Columns("Column6")
+        ComboBoxColumnOP = dgvMain.Columns("Column7")
 
 
         'set the panel12
@@ -91,7 +103,7 @@ Public Class UserControlTimeTable
         'dgvMain.DataSource = dataTable ' Set the DataSource of the DataGridView to the dataTable variable
 
         'load update field data
-        addOperators(connsql, cbOPerater)
+
         remarkAdd(cboxremarks)
 
         'load date
@@ -135,6 +147,10 @@ Public Class UserControlTimeTable
 
             Next
 
+            'add operators to the datagrid view
+            ComboBoxColumnOP.Items.Clear()
+            loadToDGV(connsql, ComboBoxColumnOP, groupName)
+
 
             cbAddMoreCM.Items.Clear()
             'load all CM to the more combo box
@@ -153,6 +169,10 @@ Public Class UserControlTimeTable
             'load data to datagridview CM column
             ComboBoxColumnCM.Items.Clear()
             loadMoreCMToDGV(ComboBoxColumnCM, lbCM)
+
+            'load operator items
+            cbOPerater.Items.Clear()
+            addOperators(connsql, cbOPerater)
 
 
         Catch ex As Exception
@@ -495,8 +515,10 @@ Public Class UserControlTimeTable
         End Try
     End Sub
 
+    ' Handles dgvMain.CellContentClick
+    Private Sub dgvMain_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMain.CellContentClick
 
-
+    End Sub
 End Class
 
 

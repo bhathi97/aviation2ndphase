@@ -75,6 +75,19 @@ Partial Class UserControlTimeTable
         Panel11 = New Panel()
         Panel9 = New Panel()
         dgvMain = New DataGridView()
+        Column2 = New DataGridViewCheckBoxColumn()
+        Column1 = New DataGridViewTextBoxColumn()
+        noo = New DataGridViewTextBoxColumn()
+        fli = New DataGridViewTextBoxColumn()
+        Column10 = New DataGridViewTextBoxColumn()
+        Column4 = New DataGridViewTextBoxColumn()
+        lines = New DataGridViewTextBoxColumn()
+        Column6 = New DataGridViewComboBoxColumn()
+        Column7 = New DataGridViewComboBoxColumn()
+        Column8 = New DataGridViewComboBoxColumn()
+        Column9 = New DataGridViewTextBoxColumn()
+        Column3 = New DataGridViewCheckBoxColumn()
+        Column5 = New DataGridViewTextBoxColumn()
         Panel12 = New Panel()
         tbRoute = New TextBox()
         Label18 = New Label()
@@ -97,19 +110,6 @@ Partial Class UserControlTimeTable
         btnPrint = New FontAwesome.Sharp.IconButton()
         Timer1 = New Timer(components)
         ContextMenuStrip1 = New ContextMenuStrip(components)
-        Column2 = New DataGridViewCheckBoxColumn()
-        Column1 = New DataGridViewTextBoxColumn()
-        noo = New DataGridViewTextBoxColumn()
-        fli = New DataGridViewTextBoxColumn()
-        Column10 = New DataGridViewTextBoxColumn()
-        Column4 = New DataGridViewTextBoxColumn()
-        lines = New DataGridViewTextBoxColumn()
-        Column6 = New DataGridViewComboBoxColumn()
-        Column7 = New DataGridViewTextBoxColumn()
-        Column8 = New DataGridViewComboBoxColumn()
-        Column9 = New DataGridViewTextBoxColumn()
-        Column3 = New DataGridViewComboBoxColumn()
-        Column5 = New DataGridViewTextBoxColumn()
         Panel1.SuspendLayout()
         Panel7.SuspendLayout()
         Panel6.SuspendLayout()
@@ -747,6 +747,100 @@ Partial Class UserControlTimeTable
         dgvMain.Size = New Size(453, 686)
         dgvMain.TabIndex = 0
         ' 
+        ' Column2
+        ' 
+        Column2.HeaderText = ""
+        Column2.Name = "Column2"
+        Column2.ReadOnly = True
+        Column2.Resizable = DataGridViewTriState.True
+        Column2.SortMode = DataGridViewColumnSortMode.Automatic
+        Column2.Width = 20
+        ' 
+        ' Column1
+        ' 
+        Column1.HeaderText = "BAY NO"
+        Column1.Name = "Column1"
+        Column1.ReadOnly = True
+        Column1.SortMode = DataGridViewColumnSortMode.NotSortable
+        ' 
+        ' noo
+        ' 
+        noo.HeaderText = "NO"
+        noo.Name = "noo"
+        noo.ReadOnly = True
+        noo.SortMode = DataGridViewColumnSortMode.NotSortable
+        noo.Width = 40
+        ' 
+        ' fli
+        ' 
+        fli.HeaderText = "FLIGHT"
+        fli.Name = "fli"
+        fli.ReadOnly = True
+        fli.SortMode = DataGridViewColumnSortMode.NotSortable
+        ' 
+        ' Column10
+        ' 
+        Column10.HeaderText = "ROUTE"
+        Column10.Name = "Column10"
+        Column10.ReadOnly = True
+        Column10.SortMode = DataGridViewColumnSortMode.NotSortable
+        Column10.Width = 70
+        ' 
+        ' Column4
+        ' 
+        Column4.HeaderText = "E.T.A"
+        Column4.Name = "Column4"
+        Column4.ReadOnly = True
+        ' 
+        ' lines
+        ' 
+        lines.HeaderText = "AIRLINE"
+        lines.Name = "lines"
+        lines.ReadOnly = True
+        lines.SortMode = DataGridViewColumnSortMode.NotSortable
+        ' 
+        ' Column6
+        ' 
+        Column6.HeaderText = "RIC"
+        Column6.Name = "Column6"
+        Column6.Resizable = DataGridViewTriState.True
+        Column6.Width = 70
+        ' 
+        ' Column7
+        ' 
+        Column7.HeaderText = "OPERATOR"
+        Column7.Name = "Column7"
+        Column7.Resizable = DataGridViewTriState.True
+        Column7.Width = 70
+        ' 
+        ' Column8
+        ' 
+        Column8.HeaderText = "CREWMAN"
+        Column8.Name = "Column8"
+        Column8.Resizable = DataGridViewTriState.True
+        Column8.Width = 70
+        ' 
+        ' Column9
+        ' 
+        Column9.HeaderText = "REMARKS"
+        Column9.Name = "Column9"
+        Column9.ReadOnly = True
+        Column9.SortMode = DataGridViewColumnSortMode.NotSortable
+        Column9.Width = 80
+        ' 
+        ' Column3
+        ' 
+        Column3.HeaderText = "Cancel"
+        Column3.Name = "Column3"
+        Column3.Resizable = DataGridViewTriState.True
+        Column3.Width = 50
+        ' 
+        ' Column5
+        ' 
+        Column5.HeaderText = "DATE"
+        Column5.Name = "Column5"
+        Column5.ReadOnly = True
+        ' 
         ' Panel12
         ' 
         Panel12.BackColor = SystemColors.ControlLight
@@ -980,103 +1074,13 @@ Partial Class UserControlTimeTable
         btnPrint.TabIndex = 0
         btnPrint.UseVisualStyleBackColor = False
         ' 
+        ' Timer1
+        ' 
+        ' 
         ' ContextMenuStrip1
         ' 
         ContextMenuStrip1.Name = "ContextMenuStrip1"
         ContextMenuStrip1.Size = New Size(61, 4)
-        ' 
-        ' Column2
-        ' 
-        Column2.HeaderText = ""
-        Column2.Name = "Column2"
-        Column2.ReadOnly = True
-        Column2.Resizable = DataGridViewTriState.True
-        Column2.SortMode = DataGridViewColumnSortMode.Automatic
-        Column2.Width = 20
-        ' 
-        ' Column1
-        ' 
-        Column1.HeaderText = "BAY NO"
-        Column1.Name = "Column1"
-        Column1.ReadOnly = True
-        Column1.SortMode = DataGridViewColumnSortMode.NotSortable
-        ' 
-        ' noo
-        ' 
-        noo.HeaderText = "NO"
-        noo.Name = "noo"
-        noo.ReadOnly = True
-        noo.SortMode = DataGridViewColumnSortMode.NotSortable
-        noo.Width = 40
-        ' 
-        ' fli
-        ' 
-        fli.HeaderText = "FLIGHT"
-        fli.Name = "fli"
-        fli.ReadOnly = True
-        fli.SortMode = DataGridViewColumnSortMode.NotSortable
-        ' 
-        ' Column10
-        ' 
-        Column10.HeaderText = "ROUTE"
-        Column10.Name = "Column10"
-        Column10.ReadOnly = True
-        Column10.SortMode = DataGridViewColumnSortMode.NotSortable
-        Column10.Width = 70
-        ' 
-        ' Column4
-        ' 
-        Column4.HeaderText = "E.T.A"
-        Column4.Name = "Column4"
-        Column4.ReadOnly = True
-        ' 
-        ' lines
-        ' 
-        lines.HeaderText = "AIRLINE"
-        lines.Name = "lines"
-        lines.ReadOnly = True
-        lines.SortMode = DataGridViewColumnSortMode.NotSortable
-        ' 
-        ' Column6
-        ' 
-        Column6.HeaderText = "RIC"
-        Column6.Name = "Column6"
-        Column6.Resizable = DataGridViewTriState.True
-        Column6.Width = 70
-        ' 
-        ' Column7
-        ' 
-        Column7.HeaderText = "OPERATOR"
-        Column7.Name = "Column7"
-        Column7.ReadOnly = True
-        Column7.SortMode = DataGridViewColumnSortMode.NotSortable
-        Column7.Width = 70
-        ' 
-        ' Column8
-        ' 
-        Column8.HeaderText = "CREWMAN"
-        Column8.Name = "Column8"
-        Column8.Resizable = DataGridViewTriState.True
-        Column8.Width = 70
-        ' 
-        ' Column9
-        ' 
-        Column9.HeaderText = "REMARKS"
-        Column9.Name = "Column9"
-        Column9.ReadOnly = True
-        Column9.SortMode = DataGridViewColumnSortMode.NotSortable
-        Column9.Width = 80
-        ' 
-        ' Column3
-        ' 
-        Column3.HeaderText = "Is Cancel?"
-        Column3.Items.AddRange(New Object() {"NO", "YES"})
-        Column3.Name = "Column3"' 
-        ' Column5
-        ' 
-        Column5.HeaderText = "DATE"
-        Column5.Name = "Column5"
-        Column5.ReadOnly = True
         ' 
         ' UserControlTimeTable
         ' 
@@ -1194,9 +1198,9 @@ Partial Class UserControlTimeTable
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents lines As DataGridViewTextBoxColumn
     Friend WithEvents Column6 As DataGridViewComboBoxColumn
-    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewComboBoxColumn
     Friend WithEvents Column8 As DataGridViewComboBoxColumn
     Friend WithEvents Column9 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewComboBoxColumn
+    Friend WithEvents Column3 As DataGridViewCheckBoxColumn
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
 End Class

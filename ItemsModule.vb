@@ -153,9 +153,15 @@ Module ItemsModule
         Try
             connsql.Open()
 
-            Dim cmd As New SqlCommand("SELECT NAME FROM CREWMEMBERS_MASTER_TABLE WHERE POSITION = 'OPERATOR'", connsql)
-            Dim oper = cmd.ExecuteScalar()
-            cb.Items.Add(oper.ToString())
+            Dim cmd As New SqlCommand("SELECT * FROM CREWMEMBERS_MASTER_TABLE where POSITION = 'OPERATOR'", connsql)
+
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                cb.Items.Add(reader("NAME").ToString())
+            End While
+
+            reader.Close()
+
             connsql.Close()
 
 
@@ -341,6 +347,29 @@ Module ItemsModule
 
     End Sub
 
+    'add operators to dridview
+    Public Sub loadToDGV(connsql As SqlConnection, cb As DataGridViewComboBoxColumn, group As String)
+        Try
+
+            Dim cmd As New SqlCommand("SELECT * FROM CREWMEMBERS_MASTER_TABLE where POSITION = 'OPERATOR'", connsql)
+            'cmd.Parameters.AddWithValue("@gr", group)
+            connsql.Open()
+
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                cb.Items.Add(reader("NAME").ToString())
+            End While
+
+            reader.Close()
+            connsql.Close()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            connsql.Close()
+        End Try
+
+    End Sub
 
 
 End Module
