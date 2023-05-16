@@ -156,4 +156,23 @@ Public Class UserControlAF
         End Try
 
     End Sub
+
+    'Handles btnImportExcell.Click
+    Private Sub btnImportExcell_Click(sender As Object, e As EventArgs) Handles btnImportExcell.Click
+
+        Try
+            Dim myForm As New ImportExcel()
+            myForm.Show()
+        Catch ex As Exception
+            MsgBox(ex)
+        End Try
+
+
+
+    End Sub
+
+    'Handles btnRefreshDataGrid.Click
+    Private Sub btnRefreshDataGrid_Click(sender As Object, e As EventArgs) Handles btnRefreshDataGrid.Click
+
+    End Sub
 End Class
