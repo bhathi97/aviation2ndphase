@@ -1,8 +1,7 @@
 ﻿Imports System.Data.OleDb
-Imports System.Data.SqlClient
-Imports DocumentFormat.OpenXml.Bibliography
 Imports Microsoft.Office.Interop.Excel
 Imports OleDbConnection = System.Data.OleDb.OleDbConnection
+
 
 Public Class ImportExcel
 
@@ -62,5 +61,22 @@ Public Class ImportExcel
         Catch ex As Exception
             MessageBox.Show("An error occurred while inserting data: " & ex.Message)
         End Try
+    End Sub
+
+    Private Sub ImportExcel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        For Each frm As Form In System.Windows.Forms.Application.OpenForms
+            If frm IsNot Me Then
+                frm.Enabled = False
+            End If
+        Next
+    End Sub
+
+    Private Sub ImportExcel_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        ' Loop through all the open forms in the application
+        For Each form As Form In System.Windows.Forms.Application.OpenForms
+            If form IsNot Me AndAlso Not form.Enabled Then
+                form.Enabled = True
+            End If
+        Next
     End Sub
 End Class
